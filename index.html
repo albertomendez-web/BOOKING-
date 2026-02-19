@@ -19,80 +19,72 @@
   --purple:#7c3aed;--purple-bg:#f3effb;
   --blue:#2563eb;--blue-bg:#eff4ff;
   --font:'Outfit',sans-serif;--mono:'JetBrains Mono',monospace;
-  --r:10px;--r-lg:14px;--r-xl:20px;
+  --r:10px;--r-lg:14px;
   --shadow:0 1px 3px rgba(0,0,0,.06),0 0 1px rgba(0,0,0,.08);
   --shadow-lg:0 4px 16px rgba(0,0,0,.08),0 0 1px rgba(0,0,0,.1);
 }
 html{font-size:14px;scroll-behavior:smooth}
 body{font-family:var(--font);background:var(--bg2);color:var(--text);min-height:100vh;overflow-x:hidden}
 
-/* ═══ HEADER ═══ */
-.header{position:sticky;top:0;z-index:100;
-  background:rgba(255,255,255,.92);backdrop-filter:blur(20px) saturate(1.3);
-  border-bottom:1px solid var(--border);
-  padding:0 48px;height:62px;display:flex;align-items:center;justify-content:space-between}
+/* LOADER */
+#loader{position:fixed;inset:0;background:#fff;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;transition:opacity .4s}
+#loader.hide{opacity:0;pointer-events:none}
+.spin{width:40px;height:40px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:sp .7s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+#loader p{color:var(--text3);font-size:.9rem}
+
+/* HEADER */
+.header{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.92);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);padding:0 48px;height:60px;display:flex;align-items:center;justify-content:space-between}
 .header-left{display:flex;align-items:center;gap:14px}
-.logo-mark{width:34px;height:34px;border-radius:9px;
-  background:linear-gradient(135deg,var(--accent),var(--blue));
-  display:flex;align-items:center;justify-content:center;
-  font-family:var(--mono);font-weight:700;font-size:.82rem;color:#fff;
-  box-shadow:0 2px 10px var(--accent-glow);letter-spacing:-1px}
-.header h1{font-size:1.1rem;font-weight:600;letter-spacing:-.3px;color:var(--text)}
+.logo{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--accent),var(--blue));
+  display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-weight:700;font-size:.82rem;color:#fff;box-shadow:0 2px 10px var(--accent-glow)}
+.header h1{font-size:1.1rem;font-weight:600;letter-spacing:-.3px}
 .header h1 span{color:var(--text3);font-weight:300;margin-left:4px}
 .header-right{display:flex;align-items:center;gap:12px}
-.live-badge{display:flex;align-items:center;gap:8px;
-  background:var(--surface2);border:1px solid var(--border);
+.live-badge{display:flex;align-items:center;gap:8px;background:var(--surface2);border:1px solid var(--border);
   padding:5px 14px;border-radius:20px;font-size:.73rem;color:var(--text2);font-family:var(--mono)}
-.live-dot{width:7px;height:7px;border-radius:50%;background:var(--ok);
-  box-shadow:0 0 6px rgba(14,163,127,.5);animation:blink 2s infinite}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--ok);box-shadow:0 0 6px rgba(14,163,127,.5);animation:blink 2s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-.btn-refresh{background:var(--surface);border:1px solid var(--border);color:var(--text2);
-  padding:6px 16px;border-radius:8px;font-family:var(--font);font-size:.8rem;cursor:pointer;transition:all .25s}
-.btn-refresh:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-light)}
 
-/* ═══ CONTENT ═══ */
-.content{position:relative;z-index:1;max-width:1600px;margin:0 auto;padding:24px 48px 64px}
+.content{max-width:1640px;margin:0 auto;padding:24px 48px 64px}
 
-/* ═══ KPI ROW ═══ */
+/* KPIs */
 .kpi-row{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-bottom:24px}
-.kpi{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:20px 22px;
-  position:relative;overflow:hidden;transition:all .3s ease;box-shadow:var(--shadow)}
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);padding:20px 22px;box-shadow:var(--shadow);transition:all .3s}
 .kpi:hover{border-color:var(--border2);transform:translateY(-1px);box-shadow:var(--shadow-lg)}
-.kpi-icon{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;
-  font-size:.95rem;margin-bottom:10px}
-.kpi-icon.total{background:var(--blue-bg);color:var(--blue)}
-.kpi-icon.ok{background:var(--ok-bg);color:var(--ok)}
-.kpi-icon.cancel{background:var(--cancel-bg);color:var(--cancel)}
-.kpi-icon.money{background:var(--accent-light);color:var(--accent)}
-.kpi-icon.comm{background:var(--purple-bg);color:var(--purple)}
-.kpi-icon.nights{background:var(--warn-bg);color:var(--warn)}
+.kpi-icon{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.95rem;margin-bottom:10px}
+.kpi-icon.i-total{background:var(--blue-bg);color:var(--blue)}
+.kpi-icon.i-ok{background:var(--ok-bg);color:var(--ok)}
+.kpi-icon.i-cancel{background:var(--cancel-bg);color:var(--cancel)}
+.kpi-icon.i-money{background:var(--accent-light);color:var(--accent)}
+.kpi-icon.i-comm{background:var(--purple-bg);color:var(--purple)}
+.kpi-icon.i-nights{background:var(--warn-bg);color:var(--warn)}
 .kpi-label{font-size:.65rem;text-transform:uppercase;letter-spacing:1.8px;color:var(--text3);margin-bottom:5px;font-weight:600}
-.kpi-value{font-size:1.55rem;font-weight:700;font-family:var(--mono);letter-spacing:-1px;line-height:1.1;color:var(--text)}
-.kpi-value.c-ok{color:var(--ok)}.kpi-value.c-cancel{color:var(--cancel)}
-.kpi-sub{font-size:.7rem;color:var(--text4);margin-top:5px;font-weight:400}
+.kpi-val{font-size:1.5rem;font-weight:700;font-family:var(--mono);letter-spacing:-1px;line-height:1.1}
+.kpi-val.c-ok{color:var(--ok)}.kpi-val.c-cancel{color:var(--cancel)}
+.kpi-sub{font-size:.7rem;color:var(--text4);margin-top:5px}
 
-/* ═══ CHART + TOP PROPERTIES ═══ */
+/* CHART ROW */
 .analytics-row{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:24px}
 .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow)}
-.card-head{padding:16px 22px 0;display:flex;align-items:center;justify-content:space-between}
-.card-title{font-size:.88rem;font-weight:600;letter-spacing:-.2px;color:var(--text)}
-.card-subtitle{font-size:.7rem;color:var(--text4)}
-.chart-area{padding:14px 22px 18px;height:220px;position:relative}
+.card-head{padding:16px 22px 0;display:flex;justify-content:space-between}
+.card-title{font-size:.88rem;font-weight:600}
+.card-sub{font-size:.7rem;color:var(--text4)}
+.chart-area{padding:14px 22px 18px;height:220px}
 canvas{width:100%!important;height:100%!important}
-
 .prop-list{padding:6px 18px 18px}
 .prop-item{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--surface2)}
 .prop-item:last-child{border-bottom:none}
-.prop-rank{width:22px;height:22px;border-radius:6px;background:var(--surface2);
-  display:flex;align-items:center;justify-content:center;font-size:.63rem;font-family:var(--mono);font-weight:600;color:var(--text3);flex-shrink:0}
+.prop-rank{width:22px;height:22px;border-radius:6px;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:.63rem;font-family:var(--mono);font-weight:600;color:var(--text3);flex-shrink:0}
 .prop-rank.top{background:var(--accent-light);color:var(--accent)}
 .prop-info{flex:1;min-width:0}
-.prop-name{font-size:.78rem;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text)}
+.prop-name{font-size:.78rem;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .prop-bar{height:4px;background:var(--surface3);border-radius:2px;margin-top:4px;overflow:hidden}
 .prop-bar-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--accent),var(--blue));transition:width .8s ease}
 .prop-count{font-family:var(--mono);font-size:.73rem;color:var(--text2);font-weight:500;flex-shrink:0}
 
-/* ═══ FILTERS ═══ */
+/* FILTERS */
 .filters-bar{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);
   padding:14px 22px;display:flex;flex-wrap:wrap;gap:14px;align-items:end;margin-bottom:4px;box-shadow:var(--shadow)}
 .filter-item{display:flex;flex-direction:column;gap:3px}
@@ -105,28 +97,24 @@ select{cursor:pointer;min-width:130px}
 .filter-spacer{flex:1}
 .filter-actions{display:flex;gap:8px;align-items:end}
 .btn-f{padding:7px 16px;border-radius:7px;border:1px solid var(--border);background:var(--surface);
-  color:var(--text2);font-family:var(--font);font-size:.78rem;cursor:pointer;transition:all .25s;
-  display:flex;align-items:center;gap:5px;white-space:nowrap}
+  color:var(--text2);font-family:var(--font);font-size:.78rem;cursor:pointer;transition:all .25s;display:flex;align-items:center;gap:5px;white-space:nowrap}
 .btn-f:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-light)}
 .btn-f.primary{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:600}
 .btn-f.primary:hover{background:var(--accent2)}
 
-/* ═══ TABLE ═══ */
+/* TABLE */
 .table-meta{display:flex;align-items:center;justify-content:space-between;padding:12px 0 6px;flex-wrap:wrap;gap:10px}
 .table-count{font-size:.76rem;color:var(--text3);font-family:var(--mono)}
 .table-controls{display:flex;align-items:center;gap:10px}
 .table-controls label{font-size:.68rem;color:var(--text4);text-transform:uppercase;letter-spacing:1px;font-weight:600}
-.page-size-select{background:var(--surface);border:1px solid var(--border);color:var(--text);
-  padding:4px 10px;border-radius:6px;font-family:var(--mono);font-size:.78rem;cursor:pointer;outline:none}
-.page-size-select:focus{border-color:var(--accent)}
-
+.ps-select{background:var(--surface);border:1px solid var(--border);color:var(--text);padding:4px 10px;border-radius:6px;font-family:var(--mono);font-size:.78rem;cursor:pointer;outline:none}
+.ps-select:focus{border-color:var(--accent)}
 .table-container{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow)}
 .table-scroll{overflow-x:auto}
 table{width:100%;border-collapse:collapse;font-size:.82rem}
 thead th{background:var(--surface2);color:var(--text3);font-weight:600;text-transform:uppercase;
   font-size:.64rem;letter-spacing:1.1px;padding:12px 11px;text-align:left;
-  border-bottom:2px solid var(--border);white-space:nowrap;cursor:pointer;
-  user-select:none;transition:color .2s;position:sticky;top:0;z-index:5}
+  border-bottom:2px solid var(--border);white-space:nowrap;cursor:pointer;user-select:none;transition:color .2s;position:sticky;top:0;z-index:5}
 thead th:hover{color:var(--accent)}
 thead th.asc::after{content:' ↑';color:var(--accent);font-weight:700}
 thead th.desc::after{content:' ↓';color:var(--accent);font-weight:700}
@@ -135,145 +123,81 @@ tbody tr:last-child{border-bottom:none}
 tbody tr:hover{background:var(--accent-glow2)}
 tbody tr:nth-child(even){background:var(--bg2)}
 tbody tr:nth-child(even):hover{background:var(--accent-glow2)}
-tbody td{padding:10px 11px;white-space:nowrap;max-width:250px;overflow:hidden;text-overflow:ellipsis}
+tbody td{padding:10px 11px;white-space:nowrap;max-width:260px;overflow:hidden;text-overflow:ellipsis}
 td.mono{font-family:var(--mono);font-size:.76rem;text-align:right;color:var(--text2)}
 td.name{font-weight:500;color:var(--text)}
 td.prop{color:var(--text2);font-size:.76rem}
 td.dim{color:var(--text3);font-size:.78rem}
-
-/* Status badges */
 .badge{display:inline-flex;align-items:center;gap:5px;padding:3px 11px;border-radius:20px;font-size:.68rem;font-weight:600;letter-spacing:.3px}
 .badge::before{content:'';width:5px;height:5px;border-radius:50%}
-.badge-ok{background:var(--ok-bg);color:var(--ok);border:1px solid var(--ok-border)}
-.badge-ok::before{background:var(--ok)}
-.badge-cancel{background:var(--cancel-bg);color:var(--cancel);border:1px solid var(--cancel-border)}
-.badge-cancel::before{background:var(--cancel)}
-.badge-noshow{background:var(--warn-bg);color:var(--warn);border:1px solid var(--warn-border)}
-.badge-noshow::before{background:var(--warn)}
-.badge-other{background:var(--purple-bg);color:var(--purple);border:1px solid rgba(124,58,237,.2)}
-.badge-other::before{background:var(--purple)}
+.badge-ok{background:var(--ok-bg);color:var(--ok);border:1px solid var(--ok-border)}.badge-ok::before{background:var(--ok)}
+.badge-cancel{background:var(--cancel-bg);color:var(--cancel);border:1px solid var(--cancel-border)}.badge-cancel::before{background:var(--cancel)}
+.badge-noshow{background:var(--warn-bg);color:var(--warn);border:1px solid var(--warn-border)}.badge-noshow::before{background:var(--warn)}
+.badge-other{background:var(--purple-bg);color:var(--purple);border:1px solid rgba(124,58,237,.2)}.badge-other::before{background:var(--purple)}
 
-/* ═══ PAGINATION ═══ */
+/* PAGINATION */
 .pagination{display:flex;align-items:center;justify-content:center;gap:5px;padding:20px 0 12px}
 .pg{width:32px;height:32px;border-radius:7px;background:var(--surface);border:1px solid var(--border);
-  color:var(--text3);font-family:var(--mono);font-size:.76rem;cursor:pointer;
-  display:flex;align-items:center;justify-content:center;transition:all .2s}
+  color:var(--text3);font-family:var(--mono);font-size:.76rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
 .pg:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-light)}
-.pg.active{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700;
-  box-shadow:0 2px 8px var(--accent-glow)}
+.pg.active{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700;box-shadow:0 2px 8px var(--accent-glow)}
 .pg.nav{width:auto;padding:0 14px;font-family:var(--font);font-size:.76rem;font-weight:500}
 .pg-dots{color:var(--text4);font-family:var(--mono);padding:0 3px;font-size:.75rem}
 
-/* ═══ SCROLLBAR ═══ */
+/* ERROR */
+.error-box{text-align:center;padding:60px 40px;color:var(--text3)}
+.error-box h2{color:var(--cancel);font-size:1.2rem;margin-bottom:10px}
+.error-box a{color:var(--accent)}
+
 ::-webkit-scrollbar{width:5px;height:5px}
 ::-webkit-scrollbar-track{background:var(--bg2)}
 ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
-::-webkit-scrollbar-thumb:hover{background:var(--border-glow)}
 
-/* ═══ RESPONSIVE ═══ */
 @media(max-width:1200px){.kpi-row{grid-template-columns:repeat(3,1fr)}.analytics-row{grid-template-columns:1fr}}
-@media(max-width:768px){
-  .header,.content{padding-left:20px;padding-right:20px}
-  .kpi-row{grid-template-columns:repeat(2,1fr);gap:10px}
-  .analytics-row{grid-template-columns:1fr}
-  .search-input{width:100%}
-}
+@media(max-width:768px){.header,.content{padding-left:20px;padding-right:20px}.kpi-row{grid-template-columns:repeat(2,1fr);gap:10px}.search-input{width:100%}}
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
+<div id="loader"><div class="spin"></div><p>Cargando reservas desde Google Sheets…</p></div>
+
 <header class="header">
   <div class="header-left">
-    <div class="logo-mark">CR</div>
+    <div class="logo">CR</div>
     <h1>Cache Reservas<span>· Homity Holidays Booking</span></h1>
   </div>
   <div class="header-right">
-    <div class="live-badge"><span class="live-dot"></span>4.218 registros</div>
-    <button class="btn-refresh" onclick="location.reload()">↻ Actualizar</button>
+    <div class="live-badge"><span class="live-dot"></span><span id="liveText">Conectando…</span></div>
   </div>
 </header>
 
 <div class="content">
-
-  <!-- KPIs -->
   <div class="kpi-row">
-    <div class="kpi">
-      <div class="kpi-icon total">📊</div>
-      <div class="kpi-label">Total Reservas</div>
-      <div class="kpi-value">4.218</div>
-      <div class="kpi-sub">2021–2025 · Booking.com</div>
-    </div>
-    <div class="kpi">
-      <div class="kpi-icon ok">✓</div>
-      <div class="kpi-label">Reservas OK</div>
-      <div class="kpi-value c-ok">2.497</div>
-      <div class="kpi-sub">59,2% del total</div>
-    </div>
-    <div class="kpi">
-      <div class="kpi-icon cancel">✕</div>
-      <div class="kpi-label">Canceladas</div>
-      <div class="kpi-value c-cancel">1.028</div>
-      <div class="kpi-sub">+ 5 No-Show · 14 Chargeable</div>
-    </div>
-    <div class="kpi">
-      <div class="kpi-icon money">€</div>
-      <div class="kpi-label">Importe Total</div>
-      <div class="kpi-value">2.301.462,67 €</div>
-      <div class="kpi-sub">Media: 545,72 € / reserva</div>
-    </div>
-    <div class="kpi">
-      <div class="kpi-icon comm">%</div>
-      <div class="kpi-label">Comisión Total</div>
-      <div class="kpi-value">460.166,67 €</div>
-      <div class="kpi-sub">20,0% del importe</div>
-    </div>
-    <div class="kpi">
-      <div class="kpi-icon nights">☽</div>
-      <div class="kpi-label">Noches Totales</div>
-      <div class="kpi-value">15.163</div>
-      <div class="kpi-sub">Media: 3,6 noches / reserva</div>
-    </div>
+    <div class="kpi"><div class="kpi-icon i-total">📊</div><div class="kpi-label">Total Reservas</div><div class="kpi-val" id="k0">—</div><div class="kpi-sub" id="ks0"></div></div>
+    <div class="kpi"><div class="kpi-icon i-ok">✓</div><div class="kpi-label">Reservas OK</div><div class="kpi-val c-ok" id="k1">—</div><div class="kpi-sub" id="ks1"></div></div>
+    <div class="kpi"><div class="kpi-icon i-cancel">✕</div><div class="kpi-label">Canceladas</div><div class="kpi-val c-cancel" id="k2">—</div><div class="kpi-sub" id="ks2"></div></div>
+    <div class="kpi"><div class="kpi-icon i-money">€</div><div class="kpi-label">Importe Total</div><div class="kpi-val" id="k3">—</div><div class="kpi-sub" id="ks3"></div></div>
+    <div class="kpi"><div class="kpi-icon i-comm">%</div><div class="kpi-label">Comisión Total</div><div class="kpi-val" id="k4">—</div><div class="kpi-sub" id="ks4"></div></div>
+    <div class="kpi"><div class="kpi-icon i-nights">☽</div><div class="kpi-label">Noches Totales</div><div class="kpi-val" id="k5">—</div><div class="kpi-sub" id="ks5"></div></div>
   </div>
 
-  <!-- CHART + PROPERTIES -->
   <div class="analytics-row">
     <div class="card">
-      <div class="card-head">
-        <div><div class="card-title">Reservas por Periodo</div><div class="card-subtitle">Evolución mensual 2021–2025</div></div>
-      </div>
-      <div class="chart-area"><canvas id="chartPeriod"></canvas></div>
+      <div class="card-head"><div><div class="card-title">Reservas por Periodo</div><div class="card-sub">Evolución mensual</div></div></div>
+      <div class="chart-area"><canvas id="chart"></canvas></div>
     </div>
     <div class="card">
-      <div class="card-head">
-        <div><div class="card-title">Top Propiedades</div><div class="card-subtitle">Por volumen de reservas</div></div>
-      </div>
+      <div class="card-head"><div><div class="card-title">Top Propiedades</div><div class="card-sub">Por volumen de reservas</div></div></div>
       <div class="prop-list" id="propList"></div>
     </div>
   </div>
 
-  <!-- FILTERS -->
   <div class="filters-bar">
-    <div class="filter-item">
-      <span class="filter-label">Estado</span>
-      <select id="fStatus"><option value="">Todos</option></select>
-    </div>
-    <div class="filter-item">
-      <span class="filter-label">Propiedad</span>
-      <select id="fProp"><option value="">Todas</option></select>
-    </div>
-    <div class="filter-item">
-      <span class="filter-label">Periodo</span>
-      <select id="fPeriod"><option value="">Todos</option></select>
-    </div>
-    <div class="filter-item">
-      <span class="filter-label">Tipo</span>
-      <select id="fType"><option value="">Todos</option></select>
-    </div>
-    <div class="filter-item">
-      <span class="filter-label">Buscar</span>
-      <input class="search-input" type="text" id="searchBox" placeholder="Nombre, nº reserva, propiedad…">
-    </div>
+    <div class="filter-item"><span class="filter-label">Estado</span><select id="fSt"><option value="">Todos</option></select></div>
+    <div class="filter-item"><span class="filter-label">Propiedad</span><select id="fPr"><option value="">Todas</option></select></div>
+    <div class="filter-item"><span class="filter-label">Periodo</span><select id="fPe"><option value="">Todos</option></select></div>
+    <div class="filter-item"><span class="filter-label">Tipo</span><select id="fTy"><option value="">Todos</option></select></div>
+    <div class="filter-item"><span class="filter-label">Buscar</span><input class="search-input" type="text" id="searchBox" placeholder="Nombre, nº reserva, propiedad…"></div>
     <div class="filter-spacer"></div>
     <div class="filter-actions">
       <button class="btn-f" onclick="resetFilters()">✕ Limpiar</button>
@@ -281,278 +205,237 @@ td.dim{color:var(--text3);font-size:.78rem}
     </div>
   </div>
 
-  <!-- TABLE META -->
   <div class="table-meta">
     <span class="table-count" id="tableCount"></span>
     <div class="table-controls">
-      <label>Filas por página</label>
-      <select class="page-size-select" id="pageSizeSelect">
+      <label>Filas</label>
+      <select class="ps-select" id="psSelect">
         <option value="50">50</option>
         <option value="100" selected>100</option>
         <option value="500">500</option>
         <option value="0">Todas</option>
       </select>
-      <span class="table-count" style="margin-left:8px">Click en cabecera para ordenar</span>
+      <span class="table-count" style="margin-left:6px">Click cabecera = ordenar</span>
     </div>
   </div>
 
-  <!-- TABLE -->
   <div class="table-container">
     <div class="table-scroll">
-      <table>
-        <thead id="thead"><tr></tr></thead>
-        <tbody id="tbody"></tbody>
-      </table>
+      <table><thead id="thead"><tr></tr></thead><tbody id="tbody"></tbody></table>
     </div>
   </div>
 
-  <!-- PAGINATION -->
-  <div class="pagination" id="pagination"></div>
-
+  <div class="pagination" id="pag"></div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script>
-// ═══ EMBEDDED DATA ═══
-const MOCK_DATA = [
-[3537059517,"2021-06-27","2021-07-03","Daniel Moreno","Homity Holidays - Playa Granada - Marina Golf","Motril",1,4,6,772.92,115.94,"OK","","7222495","2021-07","Excel"],
-[3280606320,"2021-12-31","2022-01-02","Adriana Córdoba Tudea","Homity Holidays - Playa Granada - Marina Golf","Motril",1,5,2,330,49.5,"OK","","7222495","2022-01","Excel"],
-[3540382257,"2022-08-08","2022-08-11","Francisco Javier García Ibañez","Homity Holidays - Playa Granada - Marina Golf","Motril",1,5,0,0,0,"CANCELLED","","7222495","2022-08","Excel"],
-[3176628730,"2022-04-30","2022-05-02","María Luisa Carbajo Botella","Homity Holidays - Playa Granada - Marina Golf","Motril",1,4,2,230.84,39.24,"OK","","7222495","2022-05","Excel"],
-[2460998279,"2022-06-10","2022-06-12","Daniel Martin Sánchez","Homity Holidays - Playa Granada - Aguacate Beach","Motril",1,2,0,0,0,"CANCELLED","","7817028","2022-06","Excel"],
-[2652015536,"2022-05-07","2022-05-08","Javier Ruiz Díaz","Homity Holidays - Playa Granada - Aguacate Beach","Motril",1,5,1,214.5,32.18,"OK","","7817028","2022-05","Excel"],
-[3477090722,"2022-10-20","2022-10-23","Jose Patricio Saura Alcaraz","Homity Holidays - Playa Granada - Aguacate Beach","Motril",1,2,3,340,57.8,"OK","","7817028","2022-10","Excel"],
-[3943627808,"2021-09-07","2021-09-10","Álvaro Rodríguez Galán","Homity Holidays - Playa Granada - Marina Golf","Motril",1,2,3,435,65.25,"OK","","7222495","2021-09","Excel"],
-[4048962032,"2023-05-05","2023-05-07","M. Dolores Jiménez","Homity Holidays - Playa Granada - Mar de Astrid","Motril",1,4,2,304,51.68,"OK","","7222495","2023-05","Excel"],
-[3621544938,"2023-04-28","2023-04-30","Carmen Gutiérrez López","Homity Holidays - Playa Granada - Mar de Astrid","Motril",1,3,0,0,0,"CANCELLED","","7222495","2023-04","Excel"],
-[3198754617,"2023-07-15","2023-07-22","Antonio Fernández Ruiz","Homity Holidays - Playa Granada - Mar de Astrid","Motril",1,4,7,1295,284.9,"OK","","7222495","2023-07","Google Sheet"],
-[2845129033,"2023-07-01","2023-07-04","Isabel Torres Martín","Homity Holidays - Playa Granada - Marina Golf","Motril",1,6,3,567,124.74,"OK","","7222495","2023-07","Google Sheet"],
-[3412876523,"2023-08-10","2023-08-15","Pedro Navarro Sánchez","Homity Holidays - Playa Granada - Aguacate Beach","Motril",1,4,5,875,192.5,"OK","","7817028","2023-08","Google Sheet"],
-[2903654128,"2023-08-20","2023-08-22","Lucía Martínez Vega","Homity Holidays - Playa Granada - Mar de Astrid","Motril",1,2,2,380,83.6,"OK","","7222495","2023-08","Google Sheet"],
-[3567891234,"2023-09-01","2023-09-05","Miguel Ángel Romero","Homity Holidays - Granada - Piedra Santa","Granada",1,4,4,520,114.4,"OK","","7222495","2023-09","Google Sheet"],
-[2781234567,"2023-09-15","2023-09-17","Ana Belén Ortega","Exclusive Castell de Ferro - Castell Playa","Motril",1,3,0,0,0,"CANCELLED","","7222495","2023-09","Google Sheet"],
-[3901234567,"2023-10-01","2023-10-04","Rafael López García","Homity Holidays - Playa Granada - Marina Golf","Motril",1,2,3,405,89.1,"OK","","7222495","2023-10","Google Sheet"],
-[3456789012,"2023-10-20","2023-10-22","Sara Delgado Ruiz","Homity Holidays - Playa Granada - Mar de Astrid","Motril",1,4,2,310,68.2,"OK","","7222495","2023-10","Google Sheet"],
-[2678901234,"2023-11-10","2023-11-12","Carlos Muñoz Pérez","Homity Holidays - Playa Granada - Aguacate Beach","Motril",1,2,2,240,52.8,"OK","","7817028","2023-11","Google Sheet"],
-[3789012345,"2023-12-22","2023-12-26","Elena Herrero Díaz","Homity Holidays - Playa Granada - Marina Golf","Motril",1,6,4,680,149.6,"OK","","7222495","2023-12","Google Sheet"],
-[2890123456,"2023-12-29","2024-01-02","Juan Manuel Serrano","Homity Holidays - Playa Granada - Mar de Astrid","Motril",1,4,4,720,158.4,"OK","","7222495","2024-01","Google Sheet"],
-[3012345678,"2024-01-15","2024-01-17","Patricia Morales Gil","Homity Holidays - Granada - Piedra Santa","Granada",1,2,0,0,0,"CANCELLED","","7222495","2024-01","Google Sheet"],
-[4123456789,"2024-02-10","2024-02-14","Fernando Blanco Torres","Homity Holidays - Duplex Sierra Nevada","Sierra Nevada",1,4,4,960,211.2,"OK","","7222495","2024-02","Google Sheet"],
-[3234567890,"2024-03-01","2024-03-03","Rosa María Castillo","Homity Holidays - Playa Granada - Los Moriscos II","Motril",1,3,2,310,68.2,"OK","","7222495","2024-03","Google Sheet"],
-[2345678901,"2024-03-15","2024-03-18","Alejandro Prieto Mora","Homity Holidays - Playa Granada - Marina Golf","Motril",1,2,3,405,89.1,"OK","","7222495","2024-03","Google Sheet"],
-[4456789012,"2024-04-05","2024-04-07","María José Soto Ruiz","Homity Holidays - Playa Granada - Mar de Astrid","Motril",1,4,0,0,0,"CANCELLED","","7222495","2024-04","Google Sheet"],
-[3567890123,"2024-04-20","2024-04-25","Enrique Vargas López","Homity Holidays - Playa Granada - Aguacate Beach","Motril",1,6,5,925,203.5,"OK","","7817028","2024-04","Google Sheet"],
-[2678901235,"2024-05-01","2024-05-04","Cristina Ramos Pérez","Homity Holidays - Playa Granada - Marina Golf","Motril",1,2,3,510,112.2,"OK","","7222495","2024-05","Google Sheet"],
-[4789012346,"2024-06-15","2024-06-20","Pablo Herrera Martín","Homity Holidays - Playa Granada - Mar de Astrid","Motril",1,4,5,1150,253,"OK","","7222495","2024-06","Google Sheet"],
-[3890123457,"2024-06-25","2024-06-28","Laura Jiménez Vega","Homity Holidays - Playa Granada - Marina Golf","Motril",1,3,3,690,151.8,"OK","","7222495","2024-06","Google Sheet"],
-[2901234568,"2024-07-01","2024-07-07","Manuel García Ortega","Homity Holidays - Playa Granada - Aguacate Beach","Motril",1,6,6,1380,303.6,"OK","","7817028","2024-07","Google Sheet"],
-[4012345679,"2024-07-10","2024-07-12","Beatriz Molina Díaz","Homity Holidays - Granada - Piedra Santa","Granada",1,2,0,0,0,"CANCELLED","","7222495","2024-07","Google Sheet"],
-[3123456780,"2024-07-20","2024-07-27","Santiago Ruiz Torres","Homity Holidays - Playa Granada - Mar de Astrid","Motril",1,4,7,1610,354.2,"OK","","7222495","2024-07","Google Sheet"],
-[2234567891,"2024-08-01","2024-08-05","Marta López Navarro","Homity Holidays - Playa Granada - Marina Golf","Motril",1,5,4,920,202.4,"OK","","7222495","2024-08","Google Sheet"],
-[4345678902,"2024-08-10","2024-08-14","Javier Delgado Sánchez","Homity Holidays - Playa Granada - Mar de Astrid","Motril",1,3,4,880,193.6,"OK","","7222495","2024-08","Google Sheet"],
-[3456789013,"2024-08-20","2024-08-22","Andrea Moreno García","Homity Holidays - Playa Granada - Aguacate Beach","Motril",1,2,0,0,0,"CANCELLED","","7817028","2024-08","Google Sheet"],
-[2567890124,"2024-09-01","2024-09-04","Raúl Fernández Blanco","Homity Holidays - Playa Granada - Marina Golf","Motril",1,4,3,645,141.9,"OK","","7222495","2024-09","Google Sheet"],
-[4678901235,"2024-09-15","2024-09-18","Silvia Corral Robles","Homity Holidays - Playa Granada - Mar de Astrid","Motril",1,2,3,570,125.4,"OK","","7222495","2024-09","Google Sheet"],
-[3789012346,"2024-10-01","2024-10-03","Diego Sánchez Muñoz","Exclusive Castell de Ferro - Castell Playa","Motril",1,4,2,340,74.8,"OK","","7222495","2024-10","Google Sheet"],
-[2890123457,"2024-10-15","2024-10-17","Natalia Gómez Pérez","Homity Holidays - Playa Granada - Marina Golf","Motril",1,3,0,0,0,"CANCELLED","NO_SHOW","7222495","2024-10","Google Sheet"],
-[4901234568,"2024-11-01","2024-11-03","Alberto Torres Vega","Homity Holidays - Playa Granada - Mar de Astrid","Motril",1,2,2,380,83.6,"OK","","7222495","2024-11","Google Sheet"],
-[3012345679,"2024-11-20","2024-11-24","Rocío Martín López","Homity Holidays - Playa Granada - Marina Golf","Motril",1,4,4,560,123.2,"OK","","7222495","2024-11","Google Sheet"],
-[2123456790,"2024-12-20","2024-12-26","Francisco Ruiz Herrero","Homity Holidays - Playa Granada - Aguacate Beach","Motril",1,6,6,1080,237.6,"OK","","7817028","2024-12","Google Sheet"],
-[4234567901,"2024-12-28","2025-01-02","Pilar García Serrano","Homity Holidays - Playa Granada - Mar de Astrid","Motril",1,4,5,950,209,"OK","","7222495","2025-01","Google Sheet"],
-[3345678012,"2025-01-10","2025-01-12","Roberto Navarro Gil","Homity Holidays - Granada - Piedra Santa","Granada",1,2,2,290,63.8,"OK","","7222495","2025-01","Google Sheet"],
-[2456789123,"2025-01-25","2025-01-27","Carmen Ortega Díaz","Homity Holidays - Playa Granada - Marina Golf","Motril",1,3,0,0,0,"CANCELLED","","7222495","2025-01","Google Sheet"],
-[4567890234,"2025-02-01","2025-02-03","Luis Miguel Prieto","Homity Holidays - Duplex Sierra Nevada","Sierra Nevada",1,4,2,480,105.6,"OK","","7222495","2025-02","Google Sheet"],
-[3678901345,"2025-02-14","2025-02-16","Eva Sánchez Morales","Homity Holidays - Playa Granada - Mar de Astrid","Motril",1,2,2,360,79.2,"OK","","7222495","2025-02","Google Sheet"],
-[2789012456,"2025-02-28","2025-03-02","Jorge Herrera Torres","Homity Holidays - Playa Granada - Aguacate Beach","Motril",1,4,2,430,94.6,"OK","","7817028","2025-02","Google Sheet"]
+const SHEET_ID='1hi4dWvoqiCD-3k9Yv6sH5KChaYRdRW_dSdBwb9Ryvhw', GID='1035619300';
+
+// Columns to display: [srcIndex, label, type]
+// types: m=mono/num, $=money, n=name, p=property, s=status, d=dim
+const DC=[
+  [0,'Reserva','m'],[3,'Llegada','d'],[4,'Salida','d'],[6,'Huésped','n'],
+  [19,'Propiedad','p'],[20,'Ciudad','d'],[7,'Hab.','m'],[8,'Pers.','m'],[9,'Noches','m'],
+  [12,'Importe','$'],[13,'Comisión','$'],[15,'Estado','s'],[17,'Moneda','d'],[23,'Periodo','d'],[24,'Tipo','d']
 ];
 
-const PERIOD_DATA = [
-["2021-07",25],["2021-08",58],["2021-09",25],["2021-10",6],["2021-11",5],["2021-12",11],
-["2022-01",8],["2022-02",7],["2022-03",1],["2022-04",31],["2022-05",45],["2022-06",62],["2022-07",49],["2022-08",75],["2022-09",64],["2022-10",16],["2022-11",12],["2022-12",21],
-["2023-01",12],["2023-02",2],["2023-03",3],["2023-04",28],["2023-05",26],["2023-06",92],["2023-07",247],["2023-08",241],["2023-09",181],["2023-10",74],["2023-11",15],["2023-12",37],
-["2024-01",57],["2024-02",21],["2024-03",55],["2024-04",51],["2024-05",72],["2024-06",161],["2024-07",288],["2024-08",304],["2024-09",240],["2024-10",109],["2024-11",61],["2024-12",87],
-["2025-01",138],["2025-02",120]
-];
+let allRows=[], filtered=[], PAGE_SIZE=100, page=0, sCol=-1, sDir=1, chartInst=null;
 
-const AMOUNT_DATA = [
-["2021-07",13990],["2021-08",36522],["2021-09",7631],["2021-10",2025],["2021-11",1699],["2021-12",3451],
-["2022-01",2600],["2022-02",1597],["2022-03",167],["2022-04",9373],["2022-05",11024],["2022-06",21231],["2022-07",35200],["2022-08",53913],["2022-09",19902],["2022-10",5222],["2022-11",4338],["2022-12",8065],
-["2023-01",6593],["2023-02",532],["2023-03",603],["2023-04",9956],["2023-05",8535],["2023-06",24644],["2023-07",113401],["2023-08",121292],["2023-09",85567],["2023-10",30968],["2023-11",6342],["2023-12",18067],
-["2024-01",31525],["2024-02",17856],["2024-03",24822],["2024-04",23500],["2024-05",34800],["2024-06",78000],["2024-07",142000],["2024-08",155000],["2024-09",110000],["2024-10",48000],["2024-11",28000],["2024-12",42000],
-["2025-01",65000],["2025-02",52000]
-];
+// ═══ LOAD FROM GOOGLE SHEETS ═══
+function load(){
+  const url=`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&gid=${GID}&headers=1`;
+  fetch(url,{credentials:'include'})
+    .then(r=>{if(!r.ok)throw new Error(r.status);return r.text()})
+    .then(txt=>{
+      const j=txt.replace(/^[\s\S]*?google\.visualization\.Query\.setResponse\(/,'').replace(/\);?\s*$/,'');
+      process(JSON.parse(j));
+    })
+    .catch(()=>{
+      // JSONP fallback
+      window.__cb=function(d){process(d)};
+      const s=document.createElement('script');
+      s.src=url.replace('tqx=out:json','tqx=out:json;responseHandler:__cb');
+      s.onerror=()=>{
+        document.getElementById('loader').innerHTML='<div class="error-box"><h2>⚠ No se pudo conectar</h2><p>La hoja debe estar compartida como "Cualquier persona con el enlace"</p><p style="margin-top:10px"><a href="https://docs.google.com/spreadsheets/d/'+SHEET_ID+'/edit?gid='+GID+'" target="_blank">Abrir en Google Sheets ↗</a></p></div>';
+      };
+      document.body.appendChild(s);
+    });
+}
+// Also handle default gviz wrapper
+if(!window.google)window.google={};
+if(!window.google.visualization)window.google.visualization={};
+if(!window.google.visualization.Query)window.google.visualization.Query={};
+window.google.visualization.Query.setResponse=function(d){process(d)};
 
-const TOP_PROPERTIES = [
-  ["Homity - Playa Granada - Mar de Astrid", 1063],
-  ["Homity - Playa Granada - Marina Golf", 951],
-  ["Homity - Playa Granada - Aguacate Beach", 945],
-  ["Motril (Genérico)", 687],
-  ["Homity - Granada - Piedra Santa", 198],
-  ["Homity - Playa Granada - Los Moriscos II", 151],
-  ["Exclusive Castell de Ferro", 81],
-  ["Apartamento Velilla Park II", 39],
-  ["Homity - Duplex Sierra Nevada", 37],
-  ["Apartamentos Salobreña Centro", 20]
-];
+function process(data){
+  const cols=data.table.cols, types=cols.map(c=>c.type);
+  allRows=data.table.rows.map(row=>
+    row.c.map((cell,i)=>{
+      if(!cell)return '';
+      if(types[i]==='date'||types[i]==='datetime')return cell.f||'';
+      return cell.v!=null?cell.v:'';
+    })
+  );
+  initUI();
+  document.getElementById('loader').classList.add('hide');
+  document.getElementById('liveText').textContent=allRows.length.toLocaleString('es')+' registros';
+}
 
-// ═══ COLUMNS ═══
-const COLS = [
-  {key:0, label:'Reserva',    mono:true},
-  {key:1, label:'Llegada',    dim:true},
-  {key:2, label:'Salida',     dim:true},
-  {key:3, label:'Huésped',    name:true},
-  {key:4, label:'Propiedad',  prop:true},
-  {key:5, label:'Ciudad',     dim:true},
-  {key:6, label:'Hab.',       mono:true},
-  {key:7, label:'Pers.',      mono:true},
-  {key:8, label:'Noches',     mono:true},
-  {key:9, label:'Importe',    money:true},
-  {key:10,label:'Comisión',   money:true},
-  {key:11,label:'Estado',     status:true},
-  {key:14,label:'Periodo',    dim:true},
-  {key:15,label:'Tipo',       dim:true}
-];
-
-let PAGE_SIZE = 100;
-let filtered = [...MOCK_DATA], currentPage = 0, sortCol = -1, sortDir = 1;
-
-// ═══ INIT ═══
-document.addEventListener('DOMContentLoaded', () => {
-  buildFilters(); buildHead(); renderPropList(); renderChart(); applyFilters();
-  document.getElementById('pageSizeSelect').addEventListener('change', function() {
-    PAGE_SIZE = parseInt(this.value) || filtered.length;
-    currentPage = 0;
-    renderTable();
+function initUI(){
+  populateFilters();
+  buildHead();
+  buildChart();
+  buildProps();
+  applyFilters();
+  document.getElementById('psSelect').addEventListener('change',function(){
+    PAGE_SIZE=parseInt(this.value)||0; page=0; renderTable();
   });
-});
+}
 
 // ═══ FILTERS ═══
-function buildFilters() {
-  fill('fStatus', [...new Set(MOCK_DATA.map(r=>r[11]).filter(Boolean))].sort());
-  fill('fProp',   [...new Set(MOCK_DATA.map(r=>r[4]).filter(Boolean))].sort());
-  fill('fPeriod', [...new Set(MOCK_DATA.map(r=>r[14]).filter(Boolean))].sort());
-  fill('fType',   [...new Set(MOCK_DATA.map(r=>r[15]).filter(Boolean))].sort());
-  ['fStatus','fProp','fPeriod','fType'].forEach(id =>
-    document.getElementById(id).addEventListener('change', () => { currentPage=0; applyFilters(); }));
-  document.getElementById('searchBox').addEventListener('input', debounce(() => { currentPage=0; applyFilters(); }, 200));
+function populateFilters(){
+  const sets={fSt:15,fPr:19,fPe:23,fTy:24};
+  Object.entries(sets).forEach(([id,ci])=>{
+    const vals=[...new Set(allRows.map(r=>String(r[ci]||'')).filter(Boolean))].sort();
+    const sel=document.getElementById(id);
+    vals.forEach(v=>{const o=document.createElement('option');o.value=v;o.textContent=v.length>45?v.substring(0,42)+'…':v;sel.appendChild(o)});
+    sel.addEventListener('change',()=>{page=0;applyFilters()});
+  });
+  document.getElementById('searchBox').addEventListener('input',debounce(()=>{page=0;applyFilters()},200));
 }
-function fill(id, vals) {
-  const s = document.getElementById(id);
-  vals.forEach(v => { const o = document.createElement('option'); o.value=v; o.textContent=v.length>40?v.substring(0,37)+'…':v; s.appendChild(o); });
-}
-function applyFilters() {
-  const st=document.getElementById('fStatus').value, pr=document.getElementById('fProp').value,
-        pe=document.getElementById('fPeriod').value, ty=document.getElementById('fType').value,
+
+function applyFilters(){
+  const st=document.getElementById('fSt').value,pr=document.getElementById('fPr').value,
+        pe=document.getElementById('fPe').value,ty=document.getElementById('fTy').value,
         q=document.getElementById('searchBox').value.toLowerCase().trim();
-  filtered = MOCK_DATA.filter(r => {
-    if (st && r[11]!==st) return false;
-    if (pr && r[4]!==pr) return false;
-    if (pe && r[14]!==pe) return false;
-    if (ty && r[15]!==ty) return false;
-    if (q && ![r[0],r[3],r[4],r[5],r[14]].join(' ').toLowerCase().indexOf(q)===-1) return false;
+  filtered=allRows.filter(r=>{
+    if(st&&String(r[15])!==st)return false;
+    if(pr&&String(r[19])!==pr)return false;
+    if(pe&&String(r[23])!==pe)return false;
+    if(ty&&String(r[24])!==ty)return false;
+    if(q&&[r[0],r[5],r[6],r[19],r[20],r[23]].join(' ').toLowerCase().indexOf(q)===-1)return false;
     return true;
   });
-  if (sortCol>=0) doSort();
+  if(sCol>=0)doSort();
+  updateKPIs();
   renderTable();
 }
-function resetFilters() {
-  ['fStatus','fProp','fPeriod','fType'].forEach(id => document.getElementById(id).value='');
-  document.getElementById('searchBox').value=''; currentPage=0; applyFilters();
+
+function resetFilters(){
+  ['fSt','fPr','fPe','fTy'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('searchBox').value='';page=0;applyFilters();
+}
+
+// ═══ KPIs ═══
+function updateKPIs(){
+  const n=filtered.length;
+  const ok=filtered.filter(r=>String(r[15])==='OK').length;
+  const canc=filtered.filter(r=>{const s=String(r[15]).toUpperCase();return s==='CANCELLED'||s.includes('CANCELLATION')}).length;
+  const ns=filtered.filter(r=>{const s=String(r[15]).toUpperCase();return s==='NO_SHOW'||s.includes('NO SHOW')}).length;
+  const amt=filtered.reduce((s,r)=>s+(parseFloat(r[12])||0),0);
+  const com=filtered.reduce((s,r)=>s+(parseFloat(r[13])||0),0);
+  const nts=filtered.reduce((s,r)=>s+(parseInt(r[9])||0),0);
+
+  $('k0',n.toLocaleString('es'));$('ks0',`de ${allRows.length.toLocaleString('es')} totales`);
+  $('k1',ok.toLocaleString('es'));$('ks1',n?(ok/n*100).toFixed(1)+'% del filtro':'');
+  $('k2',canc.toLocaleString('es'));$('ks2',ns?`+ ${ns} No-Show`:'');
+  $('k3',fmt(amt)+' €');$('ks3',n?'Media: '+fmt(amt/n)+' €/reserva':'');
+  $('k4',fmt(com)+' €');$('ks4',amt?(com/amt*100).toFixed(1)+'% del importe':'');
+  $('k5',nts.toLocaleString('es'));$('ks5',n?'Media: '+(nts/n).toFixed(1)+' noches/reserva':'');
 }
 
 // ═══ TABLE ═══
-function buildHead() {
-  const tr = document.querySelector('#thead tr');
-  COLS.forEach((c,i) => { const th=document.createElement('th'); th.textContent=c.label; th.onclick=()=>sortBy(i); th.dataset.ci=i; tr.appendChild(th); });
+function buildHead(){
+  const tr=document.querySelector('#thead tr');
+  DC.forEach((c,i)=>{const th=document.createElement('th');th.textContent=c[1];th.onclick=()=>sortBy(i);th.dataset.i=i;tr.appendChild(th)});
 }
-function sortBy(i) {
-  const th = document.querySelector(`th[data-ci="${i}"]`);
-  const wasAsc = th.classList.contains('asc');
+
+function sortBy(i){
+  const th=document.querySelector(`th[data-i="${i}"]`),wasAsc=th.classList.contains('asc');
   document.querySelectorAll('th').forEach(t=>t.classList.remove('asc','desc'));
-  sortCol=i; sortDir=wasAsc?-1:1;
-  th.classList.add(sortDir===1?'asc':'desc');
-  doSort(); currentPage=0; renderTable();
+  sCol=i;sDir=wasAsc?-1:1;
+  th.classList.add(sDir===1?'asc':'desc');
+  doSort();page=0;renderTable();
 }
-function doSort() {
-  const c=COLS[sortCol], k=c.key, isNum=c.mono||c.money;
-  filtered.sort((a,b)=>{let va=a[k],vb=b[k];if(isNum){va=parseFloat(va)||0;vb=parseFloat(vb)||0}else{va=String(va).toLowerCase();vb=String(vb).toLowerCase()}return(va<vb?-1:va>vb?1:0)*sortDir});
+
+function doSort(){
+  const ci=DC[sCol][0],tp=DC[sCol][2],isNum=(tp==='m'||tp==='$');
+  filtered.sort((a,b)=>{let va=a[ci],vb=b[ci];if(isNum){va=parseFloat(va)||0;vb=parseFloat(vb)||0}else{va=String(va).toLowerCase();vb=String(vb).toLowerCase()}return(va<vb?-1:va>vb?1:0)*sDir});
 }
-function renderTable() {
-  const ps = PAGE_SIZE || filtered.length;
-  const start=currentPage*ps, end=Math.min(start+ps,filtered.length);
-  const page=filtered.slice(start,end);
+
+function renderTable(){
+  const ps=PAGE_SIZE||filtered.length;
+  const s=page*ps,e=Math.min(s+ps,filtered.length),rows=filtered.slice(s,e);
   let h='';
-  page.forEach(row => {
+  rows.forEach(row=>{
     h+='<tr>';
-    COLS.forEach(col => {
-      const v=row[col.key];
-      if(col.status){h+=`<td>${badge(v,row[12])}</td>`}
-      else if(col.money){h+=`<td class="mono">${v?parseFloat(v).toLocaleString('es',{minimumFractionDigits:2,maximumFractionDigits:2})+' €':'—'}</td>`}
-      else if(col.mono){h+=`<td class="mono">${v||'—'}</td>`}
-      else if(col.name){h+=`<td class="name" title="${v}">${v}</td>`}
-      else if(col.prop){h+=`<td class="prop" title="${v}">${String(v||'').replace('Homity Holidays - ','')}</td>`}
-      else{h+=`<td class="dim">${v||'—'}</td>`}
+    DC.forEach(c=>{
+      const v=row[c[0]],tp=c[2];
+      if(tp==='s')h+=`<td>${badge(v)}</td>`;
+      else if(tp==='$')h+=`<td class="mono">${v?parseFloat(v).toLocaleString('es',{minimumFractionDigits:2,maximumFractionDigits:2})+' €':'—'}</td>`;
+      else if(tp==='m')h+=`<td class="mono">${v!==''&&v!=null?v:'—'}</td>`;
+      else if(tp==='n')h+=`<td class="name" title="${esc(v)}">${esc(v)||'—'}</td>`;
+      else if(tp==='p'){const sh=String(v||'').replace('Homity Holidays - ','');h+=`<td class="prop" title="${esc(v)}">${esc(sh)||'—'}</td>`}
+      else h+=`<td class="dim">${esc(v)||'—'}</td>`;
     });
     h+='</tr>';
   });
   document.getElementById('tbody').innerHTML=h;
-  document.getElementById('tableCount').textContent=filtered.length?`${start+1}–${end} de ${filtered.length} reservas`:'Sin resultados';
-  renderPagination();
+  document.getElementById('tableCount').textContent=filtered.length?`${s+1}–${e} de ${filtered.length.toLocaleString('es')} reservas`:'Sin resultados';
+  renderPag();
 }
-function badge(payment,status) {
-  const v=String(payment||status||'').toUpperCase();
-  if(v==='OK') return '<span class="badge badge-ok">OK</span>';
-  if(v==='CANCELLED') return '<span class="badge badge-cancel">Cancelada</span>';
-  if(v.includes('NO_SHOW')||String(status).toUpperCase().includes('NO_SHOW')) return '<span class="badge badge-noshow">No-Show</span>';
-  if(v) return `<span class="badge badge-other">${payment||'—'}</span>`;
-  return '<span class="badge badge-other">—</span>';
+
+function badge(v){
+  const u=String(v||'').toUpperCase();
+  if(u==='OK')return'<span class="badge badge-ok">OK</span>';
+  if(u==='CANCELLED'||u.includes('CANCELLATION'))return'<span class="badge badge-cancel">Cancelada</span>';
+  if(u==='NO_SHOW'||u.includes('NO SHOW'))return'<span class="badge badge-noshow">No-Show</span>';
+  if(u.includes('CHARGEABLE'))return'<span class="badge badge-other">Chargeable</span>';
+  if(v)return`<span class="badge badge-other">${esc(v)}</span>`;
+  return'<span class="badge badge-other">—</span>';
 }
 
 // ═══ PAGINATION ═══
-function renderPagination() {
-  const ps=PAGE_SIZE||filtered.length;
-  const total=Math.ceil(filtered.length/ps);
-  const pag=document.getElementById('pagination');
-  if(total<=1){pag.innerHTML='';return}
+function renderPag(){
+  const ps=PAGE_SIZE||filtered.length,total=Math.ceil(filtered.length/ps),el=document.getElementById('pag');
+  if(total<=1){el.innerHTML='';return}
   let h='';
-  if(currentPage>0) h+=`<button class="pg nav" onclick="goPage(${currentPage-1})">‹ Anterior</button>`;
-  const s=Math.max(0,currentPage-3),e=Math.min(total-1,currentPage+3);
-  if(s>0){h+=`<button class="pg" onclick="goPage(0)">1</button>`;if(s>1)h+='<span class="pg-dots">…</span>'}
-  for(let p=s;p<=e;p++) h+=`<button class="pg${p===currentPage?' active':''}" onclick="goPage(${p})">${p+1}</button>`;
-  if(e<total-1){if(e<total-2)h+='<span class="pg-dots">…</span>';h+=`<button class="pg" onclick="goPage(${total-1})">${total}</button>`}
-  if(currentPage<total-1) h+=`<button class="pg nav" onclick="goPage(${currentPage+1})">Siguiente ›</button>`;
-  pag.innerHTML=h;
+  if(page>0)h+=`<button class="pg nav" onclick="gp(${page-1})">‹ Anterior</button>`;
+  const s=Math.max(0,page-3),e=Math.min(total-1,page+3);
+  if(s>0){h+=`<button class="pg" onclick="gp(0)">1</button>`;if(s>1)h+='<span class="pg-dots">…</span>'}
+  for(let p=s;p<=e;p++)h+=`<button class="pg${p===page?' active':''}" onclick="gp(${p})">${p+1}</button>`;
+  if(e<total-1){if(e<total-2)h+='<span class="pg-dots">…</span>';h+=`<button class="pg" onclick="gp(${total-1})">${total}</button>`}
+  if(page<total-1)h+=`<button class="pg nav" onclick="gp(${page+1})">Siguiente ›</button>`;
+  el.innerHTML=h;
 }
-function goPage(p){currentPage=p;renderTable();document.querySelector('.table-container').scrollIntoView({behavior:'smooth',block:'start'})}
+function gp(p){page=p;renderTable();document.querySelector('.table-container').scrollIntoView({behavior:'smooth',block:'start'})}
 
 // ═══ CHART ═══
-function renderChart() {
-  const ctx=document.getElementById('chartPeriod').getContext('2d');
-  const yearColors={'2021':'#93c5fd','2022':'#a78bfa','2023':'#6ee7b7','2024':'#0ea37f','2025':'#f59e0b'};
-  new Chart(ctx,{
+function buildChart(){
+  const byP={};
+  allRows.forEach(r=>{
+    const p=String(r[23]||'');if(!p)return;
+    if(!byP[p])byP[p]={n:0,amt:0};
+    byP[p].n++;byP[p].amt+=(parseFloat(r[12])||0);
+  });
+  const sorted=Object.entries(byP).sort((a,b)=>a[0].localeCompare(b[0]));
+  const labels=sorted.map(d=>d[0]),counts=sorted.map(d=>d[1].n),amts=sorted.map(d=>Math.round(d[1].amt));
+  const yearC={'2021':'#93c5fd','2022':'#a78bfa','2023':'#6ee7b7','2024':'#0ea37f','2025':'#f59e0b'};
+
+  chartInst=new Chart(document.getElementById('chart').getContext('2d'),{
     type:'bar',
-    data:{
-      labels:PERIOD_DATA.map(d=>d[0]),
-      datasets:[{
-        label:'Reservas',
-        data:PERIOD_DATA.map(d=>d[1]),
-        backgroundColor:PERIOD_DATA.map(d=>yearColors[d[0].substring(0,4)]||'#ccc'),
-        borderRadius:3,borderSkipped:false
-      }]
-    },
+    data:{labels,datasets:[{
+      label:'Reservas',data:counts,
+      backgroundColor:labels.map(l=>yearC[l.substring(0,4)]||'#ccc'),
+      borderRadius:3,borderSkipped:false
+    }]},
     options:{
       responsive:true,maintainAspectRatio:false,
-      plugins:{
-        legend:{display:false},
-        tooltip:{
-          backgroundColor:'#1a1f2e',titleColor:'#e2e8f4',bodyColor:'#a0aec0',
-          borderColor:'#d0d4de',borderWidth:1,padding:12,cornerRadius:8,
-          callbacks:{
-            label:c=>`${c.parsed.y} reservas`,
-            afterLabel:c=>{const a=AMOUNT_DATA[c.dataIndex];return a?`€ ${a[1].toLocaleString('es')} importe`:''}
-          }
-        }
-      },
+      plugins:{legend:{display:false},tooltip:{
+        backgroundColor:'#1a1f2e',titleColor:'#fff',bodyColor:'#a0aec0',borderColor:'#d0d4de',borderWidth:1,padding:12,cornerRadius:8,
+        callbacks:{label:c=>`${c.parsed.y} reservas`,afterLabel:c=>`€ ${amts[c.dataIndex].toLocaleString('es')}`}
+      }},
       scales:{
         x:{grid:{display:false},ticks:{color:'#a0aec0',font:{family:'JetBrains Mono',size:9},maxRotation:90,minRotation:45}},
         y:{grid:{color:'#e2e5ec40'},ticks:{color:'#a0aec0',font:{family:'JetBrains Mono',size:10}}}
@@ -562,29 +445,32 @@ function renderChart() {
 }
 
 // ═══ TOP PROPERTIES ═══
-function renderPropList() {
-  const mx=TOP_PROPERTIES[0][1], list=document.getElementById('propList');
-  TOP_PROPERTIES.forEach((p,i) => {
-    list.innerHTML+=`
-      <div class="prop-item">
-        <div class="prop-rank${i<3?' top':''}">${i+1}</div>
-        <div class="prop-info">
-          <div class="prop-name" title="${p[0]}">${p[0]}</div>
-          <div class="prop-bar"><div class="prop-bar-fill" style="width:${(p[1]/mx*100).toFixed(0)}%"></div></div>
-        </div>
-        <div class="prop-count">${p[1].toLocaleString('es')}</div>
-      </div>`;
+function buildProps(){
+  const cnt={};
+  allRows.forEach(r=>{const p=String(r[19]||'');if(p)cnt[p]=(cnt[p]||0)+1});
+  const top=Object.entries(cnt).sort((a,b)=>b[1]-a[1]).slice(0,10);
+  const mx=top[0]?top[0][1]:1,el=document.getElementById('propList');
+  top.forEach((p,i)=>{
+    const short=p[0].replace('Homity Holidays - ','').replace('Exclusive ','');
+    el.innerHTML+=`<div class="prop-item"><div class="prop-rank${i<3?' top':''}">${i+1}</div><div class="prop-info"><div class="prop-name" title="${esc(p[0])}">${esc(short)}</div><div class="prop-bar"><div class="prop-bar-fill" style="width:${(p[1]/mx*100).toFixed(0)}%"></div></div></div><div class="prop-count">${p[1].toLocaleString('es')}</div></div>`;
   });
 }
 
-// ═══ EXPORT + UTILS ═══
-function exportCSV() {
-  const rows=[COLS.map(c=>c.label).join(';')];
-  filtered.forEach(r=>rows.push(COLS.map(c=>'"'+String(r[c.key]??'').replace(/"/g,'""')+'"').join(';')));
+// ═══ EXPORT ═══
+function exportCSV(){
+  const h=DC.map(c=>c[1]),rows=[h.join(';')];
+  filtered.forEach(r=>rows.push(DC.map(c=>'"'+String(r[c[0]]??'').replace(/"/g,'""')+'"').join(';')));
   const b=new Blob(['\uFEFF'+rows.join('\n')],{type:'text/csv;charset=utf-8'});
   const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='cache_reservas_'+new Date().toISOString().substring(0,10)+'.csv';a.click();
 }
+
+// ═══ UTILS ═══
+function $(id,v){document.getElementById(id).textContent=v}
+function esc(v){return String(v||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;')}
+function fmt(n){return n.toLocaleString('es',{minimumFractionDigits:2,maximumFractionDigits:2})}
 function debounce(fn,ms){let t;return function(){clearTimeout(t);t=setTimeout(fn,ms)}}
+
+document.addEventListener('DOMContentLoaded',load);
 </script>
 </body>
 </html>
